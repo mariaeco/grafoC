@@ -13,7 +13,6 @@ int main(){
     //ADICIONAR AS CIDADES JP, CG, Patos, Pilar, Itabaiana
 
     
-
     addAresta(gr, "JP", "CG", 30);
     addAresta(gr, "JP", "Patos", 20);
     addAresta(gr, "CG", "Patos", 50);

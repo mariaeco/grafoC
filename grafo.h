@@ -7,6 +7,7 @@ typedef struct grafo Grafo;
 
 No* criarNo(char *cidade);
 Grafo* criaGrafo(int cidade);
+Grafo* criaGrafoArquivo(char* nomeArquivo);
 void addVertice(Grafo *gr);
 void addAresta(Grafo *gr, char *city1, char *city2, int dist);
 void printadjMatrix(Grafo *gr);
