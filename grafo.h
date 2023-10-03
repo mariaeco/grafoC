@@ -5,9 +5,11 @@
 typedef struct no No; //lista de adjacencias
 typedef struct grafo Grafo;
 
-No* criarNo(int valor);
-Grafo* criaGrafo(int vertices);
-void adicionarAresta(Grafo* gr, int s, int t);
-void printGrafo(Grafo *gr);
-
+No* criarNo(char *cidade);
+Grafo* criaGrafo(int cidade);
+void addVertice(Grafo *gr);
+void addAresta(Grafo *gr, char *city1, char *city2, int dist);
+void printadjMatrix(Grafo *gr);
+void printVertices(Grafo *gr);
+int findIndice(Grafo *gr, char *cidadeX);
 #endif

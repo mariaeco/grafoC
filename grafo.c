@@ -1,65 +1,137 @@
+//GRAFO
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "grafo.h"
 
+#define MAX_STRING 20
+
 struct no{ //nos da lista
-    int vertice;
+    char cidade[MAX_STRING];
     struct no* prox;
 };
 
 struct grafo{
+    int maxVertices;
     int nVertices;
     No** adjList;  //vetor de ponteiros para lista de adjancencias
+    int **adjmatrix;
 };
 
-
-No* criarNo(int valor) {
+No* criarNo(char *CITY) {
     No* novo = (No*)malloc(sizeof(No));
     if (novo == NULL) {
         printf("Erro ao alocar memória.\n");
         exit(1);
     }
-    novo->vertice = valor;
+    strncpy(novo->cidade, CITY, sizeof(novo->cidade)); // Copie o nome para a estrutura
     novo->prox = NULL;
     return novo;
 };
 
-Grafo* criaGrafo(int vertices){
-    Grafo* gr = malloc(sizeof(Grafo));
-    gr->nVertices = vertices;
+Grafo* criaGrafo(int vertices) {
+    Grafo* gr = (Grafo*)malloc(sizeof(Grafo));
+    gr->maxVertices = vertices;
 
-    gr->adjList = malloc(vertices*sizeof(No*));
+    gr->adjList = (No**)malloc(vertices * sizeof(No*));
 
-    int i;
-    for (i=0; i<vertices; i++){
-        gr->adjList[i] = NULL;
+    addVertice(gr);
+// MINHA MATRIZ DE ADJACENCIAS
+    int i, j;
+    gr->adjmatrix = (int **)malloc(vertices * sizeof(int *));
+    for (i = 0; i < vertices; i++) {
+            gr->adjmatrix[i] = (int *)malloc(vertices * sizeof(int));
     }
-    return gr;
-};
-
-
-void adicionarAresta(Grafo* gr, int s, int t){
-    // s para t
-    No* novo = criarNo(t);
-    novo->prox = gr->adjList[s];
-    gr->adjList[s] = novo;
-
-    // t para s
-    novo = criarNo(s);
-    novo->prox = gr->adjList[t];
-    gr->adjList[t] = novo;
-
-};
-
-void printGrafo(Grafo *gr){
-    int v;
-    for(v=0; v< gr->nVertices; v++){
-        No* temp = gr->adjList[v];
-        printf("\n%d: ", v);
-        while(temp){
-            printf("%d -> ", temp->vertice);
-            temp = temp->prox;
+    for(j=0; j < gr->maxVertices; j++){
+        for(i=0; i < gr->maxVertices; i++){
+            gr->adjmatrix[i][j] = 0;
         }
     }
-};
+
+    return gr;
+}
+
+void addVertice(Grafo *gr){
+    char nome[MAX_STRING];
+    int n=0;
+    while(n < gr->maxVertices){
+        printf("Digite  nome da cidade %d: ", n+1);
+        scanf("%[^\n]%*c", &nome);
+        gr->adjList[n] = criarNo(nome);
+        n++;
+    }
+}
+
+void addAresta(Grafo *gr, char *city1, char *city2, int dist){
+    int i = findIndice(gr, city1);
+    int j = findIndice(gr, city2);
+    gr->adjmatrix[i][j] = dist;
+
+    // Crie um novo nó para a cidade de destino (city2)
+    No *novoNo = criarNo(gr->adjList[j]->cidade);
+
+    // Obtenha o primeiro nó da lista de adjacência do vértice city1
+    No *atual = gr->adjList[i];
+
+    // Percorra a lista até encontrar o último nó
+    while (atual->prox != NULL) {
+        atual = atual->prox;
+    }
+
+    // Adicione o novo nó ao final da lista
+    atual->prox = novoNo;
+}
+
+int findIndice(Grafo *gr, char *cidadeX) {
+    for (int i = 0; i < gr->maxVertices; i++) {
+        if (strcmp(gr->adjList[i]->cidade, cidadeX) == 0) {
+            printf("%d", i);
+            return i; // Retorna o índice da cidade X
+        }
+    }
+    return -1, printf("\nCidade nao encontrada z \n"); // Retorna -1 se a cidade X não for encontrada
+}
+
+
+
+void printVertices(Grafo *gr){
+    Grafo *aux = gr;
+    printf(" ----------- LISTA DE ADJACENCIAS ---------------\n");
+    for (int i = 0; i < gr->maxVertices; i++) {
+        printf("%s: ",gr->adjList[i]->cidade);
+
+        No *atual = gr->adjList[i]->prox; // Comece do primeiro nó após o vértice
+        while (atual != NULL) {
+            printf("%s ->", atual->cidade);
+            atual = atual->prox;
+        }
+    printf("\n");
+    }
+}
+
+
+void printadjMatrix(Grafo *gr){
+    int i, j;
     
+    printf(" ----------- MATRIZ DE ADJACENCIAS ---------------\n");
+    printf("            ");
+    for (i = 0; i < gr->maxVertices; i++) {
+        printf("%-15s", gr->adjList[i]);
+    }
+    printf("\n");
+    
+    for(j=0; j < gr->maxVertices; j++){
+        printf("%-15s", gr->adjList[j]);
+        for(i=0; i < gr->maxVertices; i++){
+            printf("%-15d", gr->adjmatrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
+
+
+
+
