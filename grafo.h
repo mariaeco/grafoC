@@ -1,7 +1,7 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 
-#define MAX_STRING 15
+#define MAX_STRING 30
 
 
 typedef struct no No; //lista de adjacencias

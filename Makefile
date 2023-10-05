@@ -9,8 +9,8 @@ MeuGrafoArq: mainGrafoArquivo.o grafoArquivo.o
 main.o: mainGrafo.c grafo.h fila.h
 	gcc -c mainGrafo.c -o main.o
 
-mainGrafoArquivo.o: mainGrafoArquivo.c grafo.h
-	gcc -c mainGrafoArquivo.c -o mainGrafoArquivo.o
+mainGrafoArquivo.o: grafoArquivo/mainGrafoArquivo.c
+	gcc -I. -IgrafoArquivo -c grafoArquivo/mainGrafoArquivo.c -o mainGrafoArquivo.o
 
 grafo.o: grafo.c grafo.h
 	gcc -c grafo.c -o grafo.o
@@ -18,9 +18,8 @@ grafo.o: grafo.c grafo.h
 fila.o: fila.c fila.h
 	gcc -c fila.c -o fila.o
 
-
-grafoArquivo.o: grafoArquivo.c grafo.h
-	gcc -c grafoArquivo.c -o grafoArquivo.o
+grafoArquivo.o: grafoArquivo/grafoArquivo.c
+	gcc -I. -IgrafoArquivo -c grafoArquivo/grafoArquivo.c -o grafoArquivo.o
 
 clean:
 	rm -f *.o MeuGrafo MeuGrafoArq

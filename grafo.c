@@ -8,8 +8,6 @@
 #include "grafo.h"
 
 
-
-
 struct no{ //nos da lista
     char vertice[MAX_STRING];
     struct no* prox;

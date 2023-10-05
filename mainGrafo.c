@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grafo.h"
-
-
+#include "fila.h"
 
 int main(){
     int nvert = 5;//numero de vertices
     int city1, city2, distancia;
-    Grafo *gr = criaGrafo(nvert);
+    char *vertices[MAX_STRING] = {"JP", "CG", "Patos", "Pilar", "Itabaiana"};
 
     system("cls");
-    //ADICIONAR AS CIDADES JP, CG, Patos, Pilar, Itabaiana
 
-    
+   // Grafo *gr = criaGrafo(nvert, vertices);
+
+    /*
     addAresta(gr, "JP", "CG", 30);
     addAresta(gr, "JP", "Patos", 20);
     addAresta(gr, "CG", "Patos", 50);
@@ -20,16 +20,28 @@ int main(){
     addAresta(gr, "Pilar", "Itabaiana", 5);
     addAresta(gr, "Itabaiana", "Patos", 35);
     
-
-   
-    printf("\n\n");
+    printf("\n");
     printVertices(gr);
+ 
 
-    printf("\n\n");
+    printf("\n");
     printadjMatrix(gr);
+*/
 
-    system("pause");
+    Fila *fila;
     
+    criarFila(fila);
+    printf("aqui");
+    
+    inserir(fila, "Maria");
+    inserir(fila, "Uiara");
+    //inserir(fila, 4);
+    //inserir(fila, 100);
+    imprimirFila(fila);
+    remover(fila);
+    imprimirFila(fila);
+    system("pause");
+
 
     return 0;
 }
