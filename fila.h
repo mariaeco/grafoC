@@ -8,6 +8,7 @@ typedef struct fila Fila;
 
 void criarFila(Fila **fila);
 void inserir(Fila *fila, char vert[MAX_STRING]);
+int filavazia(Fila *fila);
 No* remover(Fila *fila);
 void imprimirFila(Fila *fila);
 

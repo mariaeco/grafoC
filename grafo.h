@@ -2,6 +2,7 @@
 #define GRAFO_H
 
 #define MAX_STRING 30
+#define ARESTANULA 0
 
 
 typedef struct no No; //lista de adjacencias
@@ -16,7 +17,7 @@ void printVertices(Grafo *gr);
 int findIndice(Grafo *gr, char nomevertice[MAX_STRING]);
 void buscaLargura(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRING]);
 void buscaProfundidade(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRING]);
-void limparmarcador();
+void limparmarcador(Grafo *gr);
 
 
 #endif

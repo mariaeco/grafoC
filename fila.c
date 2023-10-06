@@ -25,7 +25,7 @@ void criarFila(Fila **fila){
     (*fila)->inicio = NULL;
     (*fila)->fim = NULL;
     (*fila)->tam = 0;
-    printf("\nFila Criada com Sucesso!\n");
+    //printf("\nFila Criada com Sucesso!\n");
 }
 
 void inserir(Fila *fila, char VERTICE[MAX_STRING]){
@@ -35,8 +35,6 @@ void inserir(Fila *fila, char VERTICE[MAX_STRING]){
     if(novo != NULL){
         strncpy(novo->vert, VERTICE, sizeof(novo->vert)-1); // Copie o nome para a estrutura
         novo->vert[sizeof(novo->vert) - 1] = '\0'; // Garanta que o campo vertice seja nulo-terminado
-
-        
         novo->proximo = NULL;
         if(fila->inicio == NULL){ //inserçao do meu primeiro no
             fila->inicio = novo;
@@ -64,14 +62,18 @@ No* remover(Fila *fila){
     return remover;
 }
 
+int filavazia(Fila *fila){
+    return (fila->inicio == NULL);
+}
+
 void imprimirFila(Fila *fila){
     No *aux;
 
     aux = fila->inicio;
-    printf("-------------- Fila ----------------\n");
+    //printf("-------------- Fila ----------------\n");
     while(aux){
         printf("%s -> ",aux->vert);
         aux = aux->proximo;
     }
-    printf("Tamanho da fila: %d\n\n", fila->tam);
+    printf("Tamanho da fila: %d\n", fila->tam);
 }
