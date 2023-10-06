@@ -16,10 +16,15 @@ struct fila{
     int tam;
 };
 
-void criarFila(Fila *fila){
-    fila->inicio = NULL;
-    fila->fim = NULL;
-    fila->tam = 0;
+void criarFila(Fila **fila){
+    *fila = (Fila *)malloc(sizeof(Fila));
+    if (*fila == NULL) {
+        printf("Erro ao alocar memória para a fila.\n");
+        exit(1);
+    }
+    (*fila)->inicio = NULL;
+    (*fila)->fim = NULL;
+    (*fila)->tam = 0;
     printf("\nFila Criada com Sucesso!\n");
 }
 
@@ -65,9 +70,8 @@ void imprimirFila(Fila *fila){
     aux = fila->inicio;
     printf("-------------- Fila ----------------\n");
     while(aux){
-        printf("Vertice: %s ->",aux->vert);
+        printf("%s -> ",aux->vert);
         aux = aux->proximo;
     }
-    printf("Fim da fila\n");
     printf("Tamanho da fila: %d\n\n", fila->tam);
 }
