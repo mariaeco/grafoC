@@ -8,13 +8,10 @@ int main(){
     int city1, city2, distancia;
     char *vertices[MAX_STRING] = {"JP", "CG", "Patos", "Pilar", "Itabaiana"};
     Grafo *gr;
-   // Fila *fila;
-
 
     system("cls");
 
     gr = criaGrafo(nvert, vertices);
-    //criarFila(&fila);
 
     
     addAresta(gr, "JP", "CG", 30);
@@ -39,6 +36,9 @@ int main(){
     
     printf("\n\n\n");
     buscaLargura(gr, "Patos", "Pilar");
+
+
+    printf("\n\n");
  
     system("pause");
 

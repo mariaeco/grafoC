@@ -17,7 +17,7 @@ void printVertices(Grafo *gr);
 int findIndice(Grafo *gr, char nomevertice[MAX_STRING]);
 void buscaLargura(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRING]);
 void buscaProfundidade(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRING]);
-void limparmarcador(Grafo *gr);
+void limpamarcador(Grafo *gr);
 
 
 #endif

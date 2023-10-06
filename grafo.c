@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include "grafo.h"
 #include "fila.h"
+#include "pilha.h"
 
 
 struct no{ //nos da lista
@@ -209,9 +210,48 @@ void buscaLargura(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRING]){
     }
 }
 
-/*
-void buscaProfundidade(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRING]);
+
+void buscaProfundidade(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRING]){
+    Pilha *pilha;
+    criarPilha(&pilha);
+    bool encontrado = false;
+    
+    limpamarcador(gr);
+    
+    inserir(fila, origem);
+    int i = findIndice(gr, origem);
+    gr->marcador[i] = true;
+    
+    printf("--------------Caminho de %s para %s--------------", origem, destino);
+
+    do{
+        No *atual = remover(fila);
+
+           
+        int indice = findIndice(gr, atual->vertice);
+        int indicej = findIndice(gr, destino);
+        //printf("Visitando: %s", atual->vertice);
+            
+        for(int j = 0; j <= indicej; j++){
+            if(gr->adjmatrix[j][indice] != ARESTANULA){
+                if(gr->marcador[j] == false){
+                    atual = gr->adjList[j];
+                    //printf("\nEnfileirando %s\n", atual->vertice);
+                    inserir(fila, atual->vertice);
+                    imprimirFila(fila);
+                    gr->marcador[j] = true;
+                    if(strcmp(atual->vertice, destino)==0){
+                        printf("\nCaminho para %s Encontrado \n", destino);
+                        encontrado = true;
+                    }
+                }
+            }            
+        }
+    }while(filavazia(fila) && !encontrado);
+    if(!encontrado){
+        printf("\nCaminho para %s NAO Encontrado! \n", destino);
+    }
 }
 
-*/
+
 
