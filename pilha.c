@@ -16,30 +16,28 @@ struct pilha{
 
 
 //Funcao de criacao de Pilha
-void criaPilha(Pilha **pilha){ //
-    *pilha = (Pilha *)malloc(sizeof(pilha));
-    if (*pilha == NULL) {
+Pilha *criaPilha(){ //
+    Pilha *pilha = (Pilha *)malloc(sizeof(pilha));
+    if (pilha == NULL) {
         printf("Erro ao alocar memória para a fila.\n");
         exit(1);
     }
   
-    (*pilha)->topo = NULL; // ou 0
+    pilha->topo = NULL; // ou 0
+    pilha->tam = 0;
     printf("Pilha criada!\n");
 
-    system("pause");
-    return ;
-
+    return pilha;
 }
 
 int pilhaVazia(Pilha *pilha){
     return (pilha->topo==NULL);
-
+}
 
 //FUNCAO PARA EMPILHAR (push)
 void empilhar(Pilha *pilha, char VERTICE[MAX_STRING]){ // quase igual cria nó da Pilha dupla
-   // Pilha* aux;
-   // aux = pilha->topo;
-    No* novo = (No*)malloc(sizeof(No));
+
+    No *novo = (No*)malloc(sizeof(No));
     if (novo == NULL) {
         printf("Erro ao alocar memória.\n");
         exit(1);
@@ -48,46 +46,48 @@ void empilhar(Pilha *pilha, char VERTICE[MAX_STRING]){ // quase igual cria nó d
         novo->vert[sizeof(novo->vert) - 1] = '\0'; // Garanta que o campo vertice seja nulo-terminado
         novo->proximo = pilha->topo;
         pilha->topo = novo;
+        pilha->tam++;
     }
 }
 
-/*
-//FUNCAO PARA DESEMPILHAR (pop)
-Pilha* desempilhar(Pilha **topo){
-    if(*topo != NULL){
-        Pilha *remover = *topo;
-        *topo = remover->proximo;
+
+void desempilhar(Pilha *pilha){
+    if(pilha->topo != NULL){
+        No *remover = pilha->topo;
+        pilha->topo = pilha->topo->proximo;
         free(remover);
         printf("\nElemento removido com sucesso\n");
-        return remover;
+        pilha->tam--;
     }else{
         printf("Pilha Vazia!\n");
-        return NULL;
     }
-    system("pause");
 }
 
-void limparPilha(Pilha **topo){
-    Pilha *remover; // cria uma copia para nao perder o endereço
-    while(*topo){
-        remover = *topo;
-        *topo = remover->proximo;
+void limparPilha(Pilha *pilha){
+    No *remover; // cria uma copia para nao perder o endereço
+    while(pilha->topo){
+        remover = pilha->topo;
+        pilha->topo = pilha->topo->proximo;
         free(remover);
     }
-    if(*topo == NULL){
+    if(pilha->topo== NULL){
         printf("\nPilha deletada com sucesso\n");
     }
-    system("pause");
+    
 }
 
-void mostra(Pilha *topo){
-    printf("\n------------- PILHA ------------------");
-    while(topo){
-        imprimirDado(topo->info);
-        topo = topo->proximo;
+
+void mostraPilha(Pilha *pilha){
+    No *aux = pilha->topo;
+    printf("\n------------- PILHA ------------------\n");
+    while(aux){
+        printf("%s\n",aux->vert);
+        aux = aux->proximo;
+    }
+    if(pilha->topo == NULL){
+        printf("\nPILHA VAZIA\n");
     }
     printf("\n---------- FIM DA PILHA -------------\n");
-    system("pause");
+    
 }
 
-*/
