@@ -9,9 +9,10 @@ typedef struct pilha Pilha;
 
 Pilha *criaPilha();
 void empilhar(Pilha *pilha, char VERTICE[MAX_STRING]);
-void desempilhar(Pilha *pilha);
+No *desempilhar(Pilha *pilha);
 void mostraPilha(Pilha *pilha);
+int pilhaVazia(Pilha *pilha);
 void limparPilha(Pilha *pilha);
-
+void mostraPilha(Pilha *pilha);
 
 #endif

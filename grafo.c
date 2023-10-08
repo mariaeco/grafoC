@@ -81,15 +81,6 @@ void addVertice(Grafo *gr, char* nome[MAX_STRING]){
         printf("Vertice: %s\n",nome[n]);
         gr->adjList[n] = criarNo(nome[n]);
     }
-    /* Para pedir para o usuaro digitar os nomes, tem q remover o  char *vertice da funcao
-    char nome[MAX_STRING];
-    while(n < gr->maxVertices){
-        //printf("Digite  nome da vertice %d: ", n+1);
-        scanf("%[^\n]%*c", &nome);
-        gr->adjList[n] = criarNo(nome);
-        n++;
-    }
-    */
 }
 
 void addAresta(Grafo *gr, char vert1[MAX_STRING], 
@@ -122,7 +113,7 @@ int findIndice(Grafo *gr, char nomevertice[MAX_STRING]) {
             return i; // Retorna o índice da vertice X
         }
     }
-    return printf("\nvertice nao encontrada z \n"); // Retorna -1 se a vertice X não for encontrada
+    return printf("\nVertice %s Nao Encontrado\n", nomevertice); // Retorna -1 se a vertice X não for encontrada
 }
 
 void printVertices(Grafo *gr){
@@ -212,42 +203,39 @@ void buscaLargura(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRING]){
 
 
 void buscaProfundidade(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRING]){
-    Pilha *pilha;
-    criarPilha(&pilha);
+    Pilha *pilha = criaPilha();
     bool encontrado = false;
     
     limpamarcador(gr);
     
-    inserir(fila, origem);
+    empilhar(pilha, origem);
     int i = findIndice(gr, origem);
+    //printf("origem: %s \n", origem);
+    //printf("indice: %i\n", i);
     gr->marcador[i] = true;
     
-    printf("--------------Caminho de %s para %s--------------", origem, destino);
+    printf("--------------Caminho de %s para %s --------------", origem, destino);
 
     do{
-        No *atual = remover(fila);
-
-           
+        No *atual = desempilhar(pilha);
         int indice = findIndice(gr, atual->vertice);
         int indicej = findIndice(gr, destino);
-        //printf("Visitando: %s", atual->vertice);
-            
+        gr->marcador[indice] = true;
+
         for(int j = 0; j <= indicej; j++){
             if(gr->adjmatrix[j][indice] != ARESTANULA){
                 if(gr->marcador[j] == false){
                     atual = gr->adjList[j];
-                    //printf("\nEnfileirando %s\n", atual->vertice);
-                    inserir(fila, atual->vertice);
-                    imprimirFila(fila);
-                    gr->marcador[j] = true;
+                    empilhar(pilha, atual->vertice);
+                    mostraPilha(pilha);
                     if(strcmp(atual->vertice, destino)==0){
-                        printf("\nCaminho para %s Encontrado \n", destino);
+                        printf("\nCaminho para %s Encontrado \n\n", destino);
                         encontrado = true;
                     }
                 }
             }            
         }
-    }while(filavazia(fila) && !encontrado);
+    }while(pilhaVazia(pilha) && !encontrado);
     if(!encontrado){
         printf("\nCaminho para %s NAO Encontrado! \n", destino);
     }

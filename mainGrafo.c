@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grafo.h"
-#include "fila.h"
+
 
 int main(){
     int nvert = 5;//numero de vertices
@@ -35,11 +35,12 @@ int main(){
     buscaLargura(gr, "Patos", "Itabaiana");
     
     printf("\n\n\n");
-    buscaLargura(gr, "Patos", "Pilar");
-
+    buscaLargura(gr, "Patos", "Patos");
 
     printf("\n\n");
- 
+
+    buscaProfundidade(gr, "JP", "Itabaiana");
+
     system("pause");
 
 

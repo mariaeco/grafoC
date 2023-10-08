@@ -4,6 +4,7 @@
 #include "grafo.h"
 #include "pilha.h"
 
+
 struct no{
     char vert[MAX_STRING];
     struct no *proximo;
@@ -25,7 +26,7 @@ Pilha *criaPilha(){ //
   
     pilha->topo = NULL; // ou 0
     pilha->tam = 0;
-    printf("Pilha criada!\n");
+    //printf("Pilha criada!\n");
 
     return pilha;
 }
@@ -51,15 +52,16 @@ void empilhar(Pilha *pilha, char VERTICE[MAX_STRING]){ // quase igual cria nó d
 }
 
 
-void desempilhar(Pilha *pilha){
+No *desempilhar(Pilha *pilha){
     if(pilha->topo != NULL){
         No *remover = pilha->topo;
-        pilha->topo = pilha->topo->proximo;
-        free(remover);
-        printf("\nElemento removido com sucesso\n");
+        pilha->topo = pilha->topo->proximo;    
+       // printf("\nElemento removido com sucesso\n");
         pilha->tam--;
+        return remover;
     }else{
         printf("Pilha Vazia!\n");
+        return 0;
     }
 }
 
