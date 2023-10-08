@@ -1,9 +1,9 @@
 // FILA DINAMICA
 #ifndef PILHA_H
 #define PILHA_H
+#include "no.h"
 
 
-typedef struct no No;
 typedef struct pilha Pilha;
 
 

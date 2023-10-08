@@ -8,20 +8,9 @@
 #include "grafo.h"
 #include "fila.h"
 #include "pilha.h"
+#include "no.h"
 
 
-struct no{ //nos da lista
-    char vertice[MAX_STRING];
-    struct no* prox;
-};
-
-struct grafo{
-    int maxVertices;
-    int nVertices;
-    No** adjList;  //vetor de ponteiros para lista de adjancencias
-    int **adjmatrix;
-    bool* marcador; // marcador para indicar se ja vou visitado ou nao
-};
 
 No* criarNo(char VERTICE[MAX_STRING]) {
     No* novo = (No*)malloc(sizeof(No));
@@ -120,7 +109,7 @@ void printVertices(Grafo *gr){
     Grafo *aux = gr;
     printf(" ----------- LISTA DE ADJACENCIAS ---------------\n");
     for (int i = 0; i < gr->maxVertices; i++) {
-        printf("%s: ",gr->adjList[i]->vertice);
+        printf("%s ",gr->adjList[i]->vertice);
 
         No *atual = gr->adjList[i]->prox; // Comece do primeiro nó após o vértice
         while (atual != NULL) {
@@ -156,7 +145,6 @@ void limpamarcador(Grafo *gr){
         gr->marcador[i] =  false;
     }
 }
-
 
 
 void buscaLargura(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRING]){
@@ -242,4 +230,38 @@ void buscaProfundidade(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRI
 }
 
 
+void destroiGrafo(Grafo* gr) {
+    if (gr == NULL) {
+        return; // Verifica se o grafo já foi destruído ou não foi criado
+    }
+
+    // Libera a memória alocada para a matriz de adjacências
+    if (gr->adjmatrix != NULL) {
+        for (int i = 0; i < gr->maxVertices; i++) {
+            free(gr->adjmatrix[i]);
+        }
+        free(gr->adjmatrix);
+    }
+
+    // Libera a memória alocada para as listas de adjacência
+    if (gr->adjList != NULL) {
+        for (int i = 0; i < gr->maxVertices; i++) {
+            No* atual = gr->adjList[i];
+            while (atual != NULL) {
+                No* temp = atual;
+                atual = atual->prox;
+                free(temp);
+            }
+        }
+        free(gr->adjList);
+    }
+
+    // Libera a memória alocada para o vetor de marcadores
+    if (gr->marcador != NULL) {
+        free(gr->marcador);
+    }
+
+    // Finalmente, libera a estrutura de grafo
+    free(gr);
+}
 

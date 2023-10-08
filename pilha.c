@@ -3,12 +3,9 @@
 #include <string.h>
 #include "grafo.h"
 #include "pilha.h"
+#include "no.h"
 
 
-struct no{
-    char vert[MAX_STRING];
-    struct no *proximo;
-};
 
 struct pilha{
     No *topo;
@@ -43,9 +40,9 @@ void empilhar(Pilha *pilha, char VERTICE[MAX_STRING]){ // quase igual cria nó d
         printf("Erro ao alocar memória.\n");
         exit(1);
     }else{
-        strncpy(novo->vert, VERTICE, sizeof(novo->vert)-1); // Copie o nome para a estrutura
-        novo->vert[sizeof(novo->vert) - 1] = '\0'; // Garanta que o campo vertice seja nulo-terminado
-        novo->proximo = pilha->topo;
+        strncpy(novo->vertice, VERTICE, sizeof(novo->vertice)-1); // Copie o nome para a estrutura
+        novo->vertice[sizeof(novo->vertice) - 1] = '\0'; // Garanta que o campo vertice seja nulo-terminado
+        novo->prox = pilha->topo;
         pilha->topo = novo;
         pilha->tam++;
     }
@@ -55,7 +52,7 @@ void empilhar(Pilha *pilha, char VERTICE[MAX_STRING]){ // quase igual cria nó d
 No *desempilhar(Pilha *pilha){
     if(pilha->topo != NULL){
         No *remover = pilha->topo;
-        pilha->topo = pilha->topo->proximo;    
+        pilha->topo = pilha->topo->prox;    
        // printf("\nElemento removido com sucesso\n");
         pilha->tam--;
         return remover;
@@ -69,7 +66,7 @@ void limparPilha(Pilha *pilha){
     No *remover; // cria uma copia para nao perder o endereço
     while(pilha->topo){
         remover = pilha->topo;
-        pilha->topo = pilha->topo->proximo;
+        pilha->topo = pilha->topo->prox;
         free(remover);
     }
     if(pilha->topo== NULL){
@@ -83,8 +80,8 @@ void mostraPilha(Pilha *pilha){
     No *aux = pilha->topo;
     printf("\n------------- PILHA ------------------\n");
     while(aux){
-        printf("%s\n",aux->vert);
-        aux = aux->proximo;
+        printf("%s\n",aux->vertice);
+        aux = aux->prox;
     }
     if(pilha->topo == NULL){
         printf("\nPILHA VAZIA\n");

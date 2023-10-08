@@ -1,9 +1,9 @@
 // FILA DINAMICA
 #ifndef FILA_H
 #define FILA_H
-//#include "No.h"
+#include "No.h"
 
-typedef struct no No;
+
 typedef struct fila Fila;
 
 void criarFila(Fila **fila);

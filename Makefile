@@ -6,8 +6,8 @@ MeuGrafo: main.o grafo.o fila.o pilha.o
 MeuGrafoArq: mainGrafoArquivo.o grafoArquivo.o
 	gcc mainGrafoArquivo.o grafoArquivo.o -o MeuGrafoArq
 
-main.o: mainGrafo.c grafo.h fila.h pilha.h
-	gcc -c mainGrafo.c -o main.o
+main.o: main.c grafo.h fila.h pilha.h
+	gcc -c main.c -o main.o
 
 mainGrafoArquivo.o: grafoArquivo/mainGrafoArquivo.c
 	gcc -I. -IgrafoArquivo -c grafoArquivo/mainGrafoArquivo.c -o mainGrafoArquivo.o

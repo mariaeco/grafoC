@@ -27,7 +27,7 @@ int main(){
 
     printf("\n");
     printVertices(gr);
- 
+
     printf("\n");
     printadjMatrix(gr);
 
