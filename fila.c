@@ -25,7 +25,6 @@ void criarFila(Fila **fila){
 }
 
 void inserir(Fila *fila, char VERTICE[MAX_STRING]){
-    No *aux;
     No *novo = (No*)malloc(sizeof(No));
 
     if(novo != NULL){

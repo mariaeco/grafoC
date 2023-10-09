@@ -28,6 +28,7 @@ void destroiGrafo(Grafo *gr);
 void buscaLargura(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRING]);
 void buscaProfundidade(Grafo* gr, char origem[MAX_STRING], char destino[MAX_STRING]);
 void limpamarcador(Grafo *gr);
+Grafo* criaGrafoArq(char* nomeArquivo);
 
 
 #endif

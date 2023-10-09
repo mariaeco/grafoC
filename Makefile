@@ -1,16 +1,10 @@
-all: MeuGrafo MeuGrafoArq
+all: MeuGrafo
 
-MeuGrafo: main.o grafo.o fila.o pilha.o
-	gcc main.o grafo.o fila.o pilha.o -o MeuGrafo
+MeuGrafo: main.o grafo.o fila.o pilha.o menu.o grafoArquivo.o
+	gcc main.o grafo.o fila.o pilha.o menu.o grafoArquivo.o -o MeuGrafo
 
-MeuGrafoArq: mainGrafoArquivo.o grafoArquivo.o
-	gcc mainGrafoArquivo.o grafoArquivo.o -o MeuGrafoArq
-
-main.o: main.c grafo.h fila.h pilha.h
+main.o: main.c grafo.h fila.h pilha.h menu.o
 	gcc -c main.c -o main.o
-
-mainGrafoArquivo.o: grafoArquivo/mainGrafoArquivo.c
-	gcc -I. -IgrafoArquivo -c grafoArquivo/mainGrafoArquivo.c -o mainGrafoArquivo.o
 
 grafo.o: grafo.c grafo.h
 	gcc -c grafo.c -o grafo.o
@@ -21,8 +15,11 @@ fila.o: fila.c fila.h
 pilha.o: pilha.c pilha.h
 	gcc -c pilha.c -o pilha.o
 
+menu.o: menu.c menu.h
+	gcc -c menu.c -o menu.o
+
 grafoArquivo.o: grafoArquivo/grafoArquivo.c
 	gcc -I. -IgrafoArquivo -c grafoArquivo/grafoArquivo.c -o grafoArquivo.o
 
 clean:
-	rm -f *.o MeuGrafo MeuGrafoArq
+	rm -f *.o MeuGrafo
